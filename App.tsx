@@ -1,13 +1,13 @@
 
-import React from 'react';
+import * as React from 'react';
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
 import BenefitsSection from './components/BenefitsSection';
 import HowItWorksSection from './components/HowItWorksSection';
-import UseCasesSection from './components/UseCasesSection';
-import TestimonialsSection from './components/TestimonialsSection';
+import MetricsSection from './components/MetricalSection';
 import CTASection from './components/CTASection';
 import Footer from './components/Footer';
+import Chatbot from './components/Chatbot';
 
 const App: React.FC = () => {
   return (
@@ -17,11 +17,11 @@ const App: React.FC = () => {
         <HeroSection />
         <BenefitsSection />
         <HowItWorksSection />
-        <UseCasesSection />
-        <TestimonialsSection />
+        <MetricsSection />
         <CTASection />
       </main>
       <Footer />
+      <Chatbot />
     </div>
   );
 };
