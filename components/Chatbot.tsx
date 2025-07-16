@@ -42,7 +42,7 @@ const Chatbot: React.FC = () => {
       }
 
       const API_URL = import.meta.env.VITE_API_URL;
-      const response = await fetch(`${API_URL}/ask` {
+      const response = await fetch(`${API_URL}/ask`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
@@ -53,12 +53,12 @@ const Chatbot: React.FC = () => {
       }
 
       const data = await response.json();
-      
+
       if (data.assistant_message) {
         const botMessage = { from: 'bot', text: data.assistant_message };
         setMessages(prev => [...prev, botMessage]);
       }
-      
+
       if (data.thread_id) {
         setThreadId(data.thread_id);
       }
@@ -94,11 +94,10 @@ const Chatbot: React.FC = () => {
                 className={`flex w-full ${msg.from === 'user' ? 'justify-end' : 'justify-start'} animate-fadeIn`}
               >
                 <div
-                  className={`rounded-2xl px-5 py-3 text-base max-w-[80%] transition-all duration-300 break-words ${
-                    msg.from === 'user'
+                  className={`rounded-2xl px-5 py-3 text-base max-w-[80%] transition-all duration-300 break-words ${msg.from === 'user'
                       ? 'bg-brandBlack text-white ml-8'
                       : 'bg-[#F3F4F6] text-[#1f2937] mr-8 border border-white/30'
-                  }`}
+                    }`}
                   style={{ minWidth: '64px', wordBreak: 'break-word' }}
                 >
                   {msg.text}
