@@ -1,13 +1,7 @@
 import * as React from 'react';
 import Card from './ui/Card'; // Asegúrate de que este path sea correcto
-import { IoRocketOutline } from "react-icons/io5";
-import { FaFolder } from "react-icons/fa";
-import { FaSearch } from "react-icons/fa";
-import { FaMoneyBill } from "react-icons/fa";
-import { FaMessage } from "react-icons/fa6";
 import { CiSearch } from "react-icons/ci";
 import { CiFolderOn } from "react-icons/ci";
-import { FiMessageCircle } from "react-icons/fi";
 import { CiCircleChevUp } from "react-icons/ci";
 import { CiCircleQuestion } from "react-icons/ci";
 
