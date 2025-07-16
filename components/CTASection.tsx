@@ -4,14 +4,13 @@ import Button from './ui/Button';
 // WhatsApp Icon Component
 const WhatsAppIcon: React.FC<{ className?: string }> = ({ className }) => (
   <img 
-    src="https://img.icons8.com/?size=100&id=85088&format=png&color=FFFFFF" // Changed color to FFFFFF (white)
+    src="https://img.icons8.com/?size=100&id=85088&format=png&color=FFFFFF"
     alt="WhatsApp Icon" 
     className={className} 
-    width="40" // Base width from URL, actual display size controlled by className
-    height="40" // Base height from URL
+    width="40"
+    height="40"
   />
 );
-
 
 const CTASection: React.FC = () => {
   const handleWhatsAppRedirect = () => {
@@ -23,7 +22,7 @@ const CTASection: React.FC = () => {
   };
 
   return (
-    <section id="contacto" className="section-spacing bg-brandBlack text-surface">
+    <section id="contacto" className="py-10 md:py-14 bg-brandBlack text-surface">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h2 className="text-4xl sm:text-5xl md:text-6xl font-light text-surface mb-6">
         ¿Querés que tu negocio <br className="hidden sm:inline"/> trabaje con IA??
@@ -33,14 +32,11 @@ const CTASection: React.FC = () => {
           size="lg"
           onClick={handleWhatsAppRedirect}
           aria-label="Contactate a través de WhatsApp"
-          className="space-x-2.5"
+          className="space-x-2.5 border border-white mt-10"
         >
           <WhatsAppIcon className="w-7 h-7" />
           <span>Contactanos por WhatsApp</span>
         </Button>
-        <p className="mt-8 text-sm text-surface/70">
-        O escríbenos a: <a href="mailto:lucastudio.ba@gmail.com" className="underline hover:text-surface">lucastudio.ba@gmail.com</a>
-        </p>
       </div>
     </section>
   );

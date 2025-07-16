@@ -150,8 +150,8 @@ const BenefitsSection: React.FC = () => {
     >
       {/* Enhanced Background Effects (ajustados para ser sutiles) */}
       <div className="absolute inset-0 pointer-events-none z-0" aria-hidden="true">
-        <div className="w-[50vw] h-[50vw] bg-gradient-to-br from-accentOne/15 to-accentOne/5 rounded-full blur-3xl absolute -top-32 right-[-10vw] animate-pulse opacity-60" />
-        <div className="w-[35vw] h-[35vw] bg-gradient-to-tl from-accentOne/8 to-transparent rounded-full blur-2xl absolute bottom-[-10vw] left-[-5vw] animate-pulse opacity-40" style={{ animationDelay: '3s' }} />
+        <div className="w-[60vw] h-[60vw] bg-gradient-to-br from-accentOne/10 to-accentOne/5 rounded-full blur-[120px] absolute -top-32 right-[-10vw] opacity-10 animate-pulse" />
+        <div className="w-[45vw] h-[45vw] bg-gradient-to-tl from-accentOne/5 to-transparent rounded-full blur-[90px] absolute bottom-[-10vw] left-[-5vw] opacity-10 animate-pulse" style={{ animationDelay: '3s' }} />
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

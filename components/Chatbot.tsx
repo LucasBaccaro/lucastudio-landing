@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { FaPaperPlane } from 'react-icons/fa';
 
 const ChatIcon = () => (
   <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#374151" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -6,7 +7,7 @@ const ChatIcon = () => (
   </svg>
 );
 
-const bubbleStyles = "rounded-2xl px-5 py-3 text-base max-w-[80%] shadow-md transition-all duration-300 bg-white text-[#1f2937]";
+const bubbleStyles = "rounded-2xl px-5 py-3 text-base max-w-[80%] transition-all duration-300 bg-white text-[#1f2937]";
 
 const Chatbot: React.FC = () => {
   const [open, setOpen] = React.useState(false);
@@ -36,10 +37,9 @@ const Chatbot: React.FC = () => {
     <div className="fixed bottom-8 right-8 z-50 flex flex-col items-end">
       {open && (
         <div
-          className="w-[370px] max-w-[90vw] min-h-[480px] h-[540px] flex flex-col overflow-hidden mb-4 animate-fadeInUp rounded-3xl shadow-2xl border border-white/30"
+          className="w-[370px] max-w-[90vw] min-h-[480px] h-[540px] flex flex-col overflow-hidden mb-4 animate-fadeInUp rounded-3xl border border-white/30"
           style={{
-            background: 'linear-gradient(135deg, #fff 60%, #F5F1EA 100%)',
-            boxShadow: '0 8px 32px 0 rgba(31,41,55,0.10)'
+            background: 'linear-gradient(135deg, #fff 60%, #F5F1EA 100%)'
           }}
         >
           {/* Header minimalista */}
@@ -55,8 +55,12 @@ const Chatbot: React.FC = () => {
                 className={`flex w-full ${msg.from === 'user' ? 'justify-end' : 'justify-start'} animate-fadeIn`}
               >
                 <div
-                  className={bubbleStyles}
-                  style={{ minWidth: '64px', wordBreak: 'break-word', boxShadow: '0 2px 12px 0 rgba(31,41,55,0.06)' }}
+                  className={`rounded-2xl px-5 py-3 text-base max-w-[80%] transition-all duration-300 break-words ${
+                    msg.from === 'user'
+                      ? 'bg-brandBlack text-white ml-8'
+                      : 'bg-[#F3F4F6] text-[#1f2937] mr-8 border border-white/30'
+                  }`}
+                  style={{ minWidth: '64px', wordBreak: 'break-word' }}
                 >
                   {msg.text}
                 </div>
@@ -68,7 +72,7 @@ const Chatbot: React.FC = () => {
           <form onSubmit={handleSend} className="flex items-center border-t border-white/20 px-4 py-3 bg-white">
             <input
               type="text"
-              className="flex-1 px-4 py-2 rounded-2xl border border-white/30 focus:outline-none focus:ring-2 focus:ring-gray-200 text-base bg-white text-[#1f2937] placeholder:text-gray-400 transition-all duration-200"
+              className="flex-1 px-4 py-2 rounded-2xl border border-white/30 ring-2 ring-gray-200 outline-none text-base bg-white text-[#1f2937] placeholder:text-gray-400 transition-all duration-200"
               placeholder="Escribe tu mensaje..."
               value={input}
               onChange={e => setInput(e.target.value)}
@@ -76,10 +80,9 @@ const Chatbot: React.FC = () => {
             />
             <button
               type="submit"
-              className="ml-3 px-5 py-2 rounded-2xl border border-gray-200 text-[#374151] bg-white hover:bg-[#F5F1EA] transition-all duration-200 shadow-sm font-medium"
-              style={{ minWidth: 80 }}
+              className="ml-3 p-0 w-10 h-10 flex items-center justify-center rounded-full border border-gray-200 text-[#374151] bg-white hover:bg-[#F5F1EA] transition-all duration-200 shadow-sm font-medium"
             >
-              Enviar
+              <FaPaperPlane className="w-5 h-5" />
             </button>
           </form>
         </div>
@@ -87,9 +90,9 @@ const Chatbot: React.FC = () => {
       {/* Botón flotante minimalista con icono de chat moderno */}
       <button
         onClick={() => setOpen(o => !o)}
-        className="w-16 h-16 rounded-full bg-white border border-white/40 shadow-xl flex items-center justify-center hover:scale-105 transition-transform focus:outline-none focus:ring-2 focus:ring-gray-200"
+        className="w-16 h-16 rounded-full bg-white border border-white/40 flex items-center justify-center hover:scale-105 transition-transform focus:outline-none focus:ring-2 focus:ring-gray-200"
         aria-label={open ? 'Cerrar chat' : 'Abrir chat'}
-        style={{ boxShadow: '0 8px 32px 0 rgba(31,41,55,0.10)' }}
+        style={{}}
       >
         <ChatIcon />
       </button>

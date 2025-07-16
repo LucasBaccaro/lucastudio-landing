@@ -114,6 +114,16 @@ const HowItWorksSection: React.FC = () => {
   const titleRef = React.useRef<HTMLDivElement>(null);
   const titleInView = useInView(titleRef);
 
+  // Referencias para cada paso
+  const stepRefs = [
+    React.useRef<HTMLDivElement>(null),
+    React.useRef<HTMLDivElement>(null),
+    React.useRef<HTMLDivElement>(null)
+  ];
+
+  // Estados para controlar la visibilidad de cada paso
+  const stepInViewStates = stepRefs.map(ref => useInView(ref));
+
   return (
     <section 
       ref={sectionRef}
@@ -122,8 +132,8 @@ const HowItWorksSection: React.FC = () => {
     >
       {/* Enhanced Background Effects */}
       <div className="absolute inset-0 pointer-events-none z-0" aria-hidden="true">
-        <div className="w-[50vw] h-[50vw] bg-gradient-to-br from-accentOne/15 to-accentOne/5 rounded-full blur-3xl absolute top-0 right-[-10vw] animate-pulse" />
-        <div className="w-[30vw] h-[30vw] bg-gradient-to-tl from-accentOne/10 to-transparent rounded-full blur-2xl absolute bottom-0 left-[-5vw] animate-pulse" style={{ animationDelay: '2s' }} />
+        <div className="w-[60vw] h-[60vw] bg-gradient-to-br from-accentOne/10 to-accentOne/5 rounded-full blur-[120px] absolute top-0 right-[-10vw] opacity-10 animate-pulse" />
+        <div className="w-[40vw] h-[40vw] bg-gradient-to-tl from-accentOne/5 to-transparent rounded-full blur-[90px] absolute bottom-0 left-[-5vw] opacity-10 animate-pulse" style={{ animationDelay: '2s' }} />
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -135,14 +145,14 @@ const HowItWorksSection: React.FC = () => {
           }`}
         >
           <h2 className="text-5xl md:text-7xl font-extralight text-brandBlack mb-6 tracking-tight drop-shadow-lg relative text-left">
-    Cómo lo hacemos
-    {/* Animated underline */}
-    <div 
-      className={`absolute -bottom-2 left-0 transform h-1 bg-gradient-to-r from-transparent via-accentOne/50 to-transparent transition-all duration-1000 ${
-        titleInView ? 'w-32' : 'w-0'
-      }`} 
-    />
-  </h2>
+            Cómo lo hacemos
+            {/* Animated underline */}
+            <div 
+              className={`absolute -bottom-2 left-0 transform h-1 bg-gradient-to-r from-transparent via-accentOne/50 to-transparent transition-all duration-1000 ${
+                titleInView ? 'w-32' : 'w-0'
+              }`} 
+            />
+          </h2>
           <p className="text-xl md:text-2xl text-textSecondary/80 font-light leading-relaxed">
             Nuestro proceso para crear tu agente de IA personalizado.
           </p>
@@ -150,17 +160,39 @@ const HowItWorksSection: React.FC = () => {
 
         {/* Enhanced Steps Timeline */}
         <div className="relative max-w-5xl mx-auto">
-          {/* Connection Line */}
-          <div className="absolute left-8 top-0 bottom-0 w-px bg-gradient-to-b from-accentOne/30 via-accentOne/50 to-accentOne/30 hidden md:block" />
+          {/* Animated Connection Line - z-index más bajo */}
+          <div className="absolute left-8 top-0 bottom-0 w-px hidden md:block overflow-hidden z-0">
+            {/* Línea base estática */}
+            <div className="absolute inset-0 bg-gradient-to-b from-accentOne/10 via-accentOne/10 to-accentOne/10" />
+            
+            {/* Líneas animadas que van apareciendo */}
+            {stepInViewStates.map((inView, index) => {
+              const segmentHeight = 100 / steps.length;
+              const topPosition = (index * segmentHeight);
+              
+              return (
+                <div
+                  key={index}
+                  className={`absolute w-full bg-gradient-to-b from-accentOne/30 via-accentOne/50 to-accentOne/30 transition-all duration-1000 ease-out`}
+                  style={{
+                    top: `${topPosition}%`,
+                    height: `${segmentHeight}%`,
+                    transform: inView ? 'scaleY(1)' : 'scaleY(0)',
+                    transformOrigin: 'top',
+                    transitionDelay: `${index * 0.2 + 0.4}s`
+                  }}
+                />
+              );
+            })}
+          </div>
           
           {steps.map((step, i) => {
-            const ref = React.useRef<HTMLDivElement>(null);
-            const inView = useInView(ref);
+            const inView = stepInViewStates[i];
             
             return (
               <div
                 key={step.id}
-                ref={ref}
+                ref={stepRefs[i]}
                 className={`relative flex items-center mb-16 last:mb-0 w-full transition-all duration-1000 ease-out ${
                   inView 
                     ? 'opacity-100 translate-x-0' 
@@ -173,8 +205,8 @@ const HowItWorksSection: React.FC = () => {
                   transform: inView ? 'translateX(0)' : (i % 2 === 0 ? 'translateX(-80px)' : 'translateX(80px)')
                 }}
               >
-                {/* Step Number/Icon */}
-                <div className="relative z-20 mr-8 flex-shrink-0">
+                {/* Step Number/Icon - z-index más alto */}
+                <div className="relative z-30 mr-8 flex-shrink-0">
                   <IconStepWrapper>{step.icon}</IconStepWrapper>
                 </div>
 
