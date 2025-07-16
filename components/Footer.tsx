@@ -26,9 +26,9 @@ const Footer: React.FC = () => {
           <a href="#impacto" className="hover:text-accentOne transition-colors text-sm md:text-base">Impacto</a>
         </div>
         {/* Columna 3: Información + redes */}
-        <div className="flex flex-col items-start md:items-center md:text-center space-y-2">
+        <div className="flex flex-col w-full items-start md:items-center md:text-center space-y-2">
           <span className="font-semibold mb-1 text-base md:text-lg">Contacto</span>
-          <div className="flex flex-col space-y-2 mt-2">
+          <div className="flex flex-col w-full items-start md:items-center md:text-center space-y-2 mt-2">
             <a href="https://wa.me/5491133372466" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-accentOne transition-colors text-sm md:text-base">
               <FaWhatsapp className="w-5 h-5" />
               <span>WhatsApp</span>
