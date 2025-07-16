@@ -63,7 +63,7 @@ const UseCasesSection: React.FC = () => {
   return (
     <section id="casos-de-uso" className="relative section-spacing bg-transparent overflow-x-clip">
       <div className="absolute inset-0 pointer-events-none z-0" aria-hidden="true">
-        <div className="w-[40vw] h-[40vw] bg-brandBlack/10 rounded-full blur-2xl absolute top-0 left-0 animate-pulse" />
+        <div className="w-[50vw] h-[50vw] bg-brandBlack/5 rounded-full blur-[100px] absolute top-0 left-0 opacity-10 animate-pulse" />
       </div>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-left mb-16 max-w-2xl">
