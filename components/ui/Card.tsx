@@ -9,7 +9,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(({ children, className 
   return (
     <div
       ref={ref}
-      className={`backdrop-blur-xl bg-white/60 rounded-3xl shadow-2xl p-8 md:p-12 transition-transform duration-300 hover:scale-105 ${className}`}
+      className={`backdrop-blur-xl bg-white/60 rounded-3xl p-8 md:p-12 transition-transform duration-300 hover:scale-105 ${className}`}
       {...props}
     >
       {children}

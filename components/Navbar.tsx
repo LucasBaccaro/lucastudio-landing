@@ -26,6 +26,7 @@ const Navbar: React.FC = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-20">
         <a href="#" className="flex items-baseline space-x-1">
           <span className="font-serif text-5xl font-bold text-brandBlack">Luca</span>
+          <span className="w-0.1 inline-block" />
           <span className="font-sans text-3xl font-medium text-brandBlack tracking-wider">STUDIO</span>
         </a>
         <div className="md:hidden">
@@ -57,7 +58,7 @@ const Navbar: React.FC = () => {
         </nav>
       </div>
       {isOpen && (
-        <div className="md:hidden fixed top-20 left-0 w-full bg-white/80 backdrop-blur-xl shadow-2xl animate-fadeIn flex flex-col items-center py-8 space-y-6 z-40">
+        <div className="md:hidden fixed top-20 left-0 w-full bg-white/80 backdrop-blur-xl animate-fadeIn flex flex-col items-center py-8 space-y-6 z-40">
           {navItems.map((item) => (
             <a
               key={item.label}
