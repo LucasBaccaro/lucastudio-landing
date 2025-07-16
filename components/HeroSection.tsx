@@ -9,8 +9,8 @@ const HeroSection: React.FC = () => {
         <div className="w-[40vw] h-[40vw] bg-accentOne/20 rounded-full blur-2xl absolute top-1/2 right-0 animate-pulse" />
       </div>
       <div className="relative z-10 flex flex-col items-start max-w-2xl px-6 py-12 md:py-20 backdrop-blur-xl bg-white/60 rounded-3xl shadow-2xl gap-8 animate-fadeInUp w-full">
-        <h1 className="text-5xl md:text-7xl font-extralight text-brandBlack leading-tight drop-shadow-lg w-full text-left break-words">IA para <span className="font-bold text-accentOne">potenciar</span> tu negocio.</h1>
-        <p className="text-xl md:text-2xl text-textSecondary/80 font-light max-w-xl w-full text-left break-words">Automatizá, respondé y escalá con agentes inteligentes entrenados con tus datos.</p>
+        <h1 className="text-5xl md:text-7xl font-extralight text-brandBlack leading-tight drop-shadow-lg w-full text-left break-words">IA a <span className="font-bold text-accentOne">medida</span> para tu negocio.</h1>
+        <p className="text-xl md:text-2xl text-textSecondary/80 font-light max-w-xl w-full text-left break-words">Tu nuevo equipo no duerme, no se estresa, y responde en segundos.</p>
         <Button variant="primary" size="lg" className="mt-4 shadow-xl hover:scale-105 transition-transform" onClick={() => window.location.href = '#impacto'}>
           Descubrí el impacto
         </Button>

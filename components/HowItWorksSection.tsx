@@ -65,22 +65,22 @@ const StepThreeIcon: React.FC = () => (
 const steps: HowItWorksStep[] = [
   {
     id: 1,
-    title: 'Contacto inicial y consultoría estratégica',
-    description: 'Todo comienza con una conversación. Contactanos para discutir tus necesidades y objetivos. Juntos, exploraremos cómo un agente de IA personalizado puede transformar tu negocio y definiremos el alcance inicial del proyecto.',
+    title: 'Conversamos con vos',
+    description: 'Definimos juntos los desafíos y objetivos.',
     icon: <StepOneIcon />,
     image: 'https://img.icons8.com/?size=100&id=61864&format=png&color=000000',
   },
   {
     id: 2,
-    title: 'Provisión de información y diseño del agente',
-    description: 'Nos compartes la documentación y acceso a los datos relevantes de tu negocio (manuales, FAQs, bases de conocimiento, ejemplos de comunicación, etc.). Con esta base, nuestro equipo diseña la arquitectura y estrategia de entrenamiento específicas para tu agente IA.',
+    title: 'Diseñamos tu agente IA',
+    description: 'Con la info que nos brindás, creamos un agente que representa tu marca.',
     icon: <StepTwoIcon />,
     image: 'https://via.placeholder.com/800x600/374151/F5F1EA?text=Diseño+Agente+IA',
   },
   {
     id: 3,
-    title: 'Desarrollo, puesta en marcha y soporte continuo',
-    description: 'Nosotros nos encargamos de la magia. Desarrollamos, entrenamos rigurosamente e integramos tu agente de IA. Tras tu validación, lo activamos y queda operativo, con nuestro equipo brindando monitoreo, optimización y soporte continuo para asegurar su máximo rendimiento.',
+    title: 'Lo activamos y te acompañamos',
+    description: 'Entrenamos, integramos y hacemos seguimiento continuo para que funcione al 100%.',
     icon: <StepThreeIcon />,
     image: 'https://via.placeholder.com/800x600/374151/F5F1EA?text=Agente+IA+Activo',
   },
@@ -134,13 +134,15 @@ const HowItWorksSection: React.FC = () => {
             titleInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          <h2 className="text-5xl md:text-7xl font-extralight text-brandBlack mb-6 tracking-tight drop-shadow-lg relative">
-            ¿Como funciona?
-            {/* Animated underline */}
-            <div className={`absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-transparent via-accentOne/50 to-transparent transition-all duration-1000 ${
-              titleInView ? 'w-32' : 'w-0'
-            }`} />
-          </h2>
+          <h2 className="text-5xl md:text-7xl font-extralight text-brandBlack mb-6 tracking-tight drop-shadow-lg relative text-left">
+    Cómo lo hacemos
+    {/* Animated underline */}
+    <div 
+      className={`absolute -bottom-2 left-0 transform h-1 bg-gradient-to-r from-transparent via-accentOne/50 to-transparent transition-all duration-1000 ${
+        titleInView ? 'w-32' : 'w-0'
+      }`} 
+    />
+  </h2>
           <p className="text-xl md:text-2xl text-textSecondary/80 font-light leading-relaxed">
             Nuestro proceso para crear tu agente de IA personalizado.
           </p>

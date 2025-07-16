@@ -26,7 +26,7 @@ const CTASection: React.FC = () => {
     <section id="contacto" className="section-spacing bg-brandBlack text-surface">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h2 className="text-4xl sm:text-5xl md:text-6xl font-light text-surface mb-6">
-          ¿Listo para que un agente de IA <br className="hidden sm:inline"/> potencie tu negocio?
+        ¿Querés que tu negocio <br className="hidden sm:inline"/> trabaje con IA??
         </h2>
         <Button 
           variant="primary"
@@ -36,10 +36,10 @@ const CTASection: React.FC = () => {
           className="space-x-2.5"
         >
           <WhatsAppIcon className="w-7 h-7" />
-          <span>Contactate con nosotros</span>
+          <span>Contactanos por WhatsApp</span>
         </Button>
         <p className="mt-8 text-sm text-surface/70">
-          O escríbenos a: <a href="mailto:lucastudio.ba@gmail.com" className="underline hover:text-surface">lucastudio.ba@gmail.com</a>
+        O escríbenos a: <a href="mailto:lucastudio.ba@gmail.com" className="underline hover:text-surface">lucastudio.ba@gmail.com</a>
         </p>
       </div>
     </section>

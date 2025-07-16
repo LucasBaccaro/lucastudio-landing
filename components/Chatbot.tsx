@@ -28,7 +28,7 @@ const Chatbot: React.FC = () => {
     setMessages([...messages, { from: 'user', text: input }]);
     setInput('');
     setTimeout(() => {
-      setMessages((msgs: { from: 'bot' | 'user'; text: string }[]) => [...msgs, { from: 'bot', text: '¡Gracias por tu mensaje! Pronto un agente te responderá.' }]);
+      setMessages((msgs: { from: 'bot' | 'user'; text: string }[]) => [...msgs, { from: 'bot', text: '¡Gracias por tu mensaje! Por el momento, contactate por whatsapp.' }]);
     }, 800);
   };
 
