@@ -23,14 +23,52 @@ const Chatbot: React.FC = () => {
     }
   }, [messages, open]);
 
-  const handleSend = (e?: React.FormEvent) => {
+  const [threadId, setThreadId] = React.useState<string | null>(null);
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  const handleSend = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
-    if (!input.trim()) return;
-    setMessages([...messages, { from: 'user', text: input }]);
+    if (!input.trim() || isLoading) return;
+
+    const userMessage = { from: 'user', text: input };
+    setMessages(prev => [...prev, userMessage]);
     setInput('');
-    setTimeout(() => {
-      setMessages((msgs: { from: 'bot' | 'user'; text: string }[]) => [...msgs, { from: 'bot', text: '¡Gracias por tu mensaje! Por el momento, contactate por whatsapp.' }]);
-    }, 800);
+    setIsLoading(true);
+
+    try {
+      const body: { message: string; thread_id?: string | null } = { message: input };
+      if (threadId) {
+        body.thread_id = threadId;
+      }
+
+      const response = await fetch('http://127.0.0.1:8000/ask', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+
+      if (!response.ok) {
+        throw new Error('Error en la respuesta del servidor');
+      }
+
+      const data = await response.json();
+      
+      if (data.assistant_message) {
+        const botMessage = { from: 'bot', text: data.assistant_message };
+        setMessages(prev => [...prev, botMessage]);
+      }
+      
+      if (data.thread_id) {
+        setThreadId(data.thread_id);
+      }
+
+    } catch (error) {
+      console.error("Error al contactar al backend:", error);
+      const errorMessage = { from: 'bot', text: 'Lo siento, no pude conectarme. Intenta de nuevo más tarde.' };
+      setMessages(prev => [...prev, errorMessage]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -66,21 +104,34 @@ const Chatbot: React.FC = () => {
                 </div>
               </div>
             ))}
+            {isLoading && (
+              <div className="flex justify-start animate-fadeIn">
+                <div className="rounded-2xl px-5 py-3 text-base bg-[#F3F4F6] text-[#1f2937] mr-8 border border-white/30">
+                  <div className="flex items-center justify-center gap-2">
+                    <span className="w-2 h-2 bg-gray-400 rounded-full animate-pulse delay-0"></span>
+                    <span className="w-2 h-2 bg-gray-400 rounded-full animate-pulse delay-150"></span>
+                    <span className="w-2 h-2 bg-gray-400 rounded-full animate-pulse delay-300"></span>
+                  </div>
+                </div>
+              </div>
+            )}
             <div ref={messagesEndRef} />
           </div>
           {/* Input */}
           <form onSubmit={handleSend} className="flex items-center border-t border-white/20 px-4 py-3 bg-white">
             <input
               type="text"
-              className="flex-1 px-4 py-2 rounded-2xl border border-white/30 ring-2 ring-gray-200 outline-none text-base bg-white text-[#1f2937] placeholder:text-gray-400 transition-all duration-200"
-              placeholder="Escribe tu mensaje..."
+              className="flex-1 px-4 py-2 rounded-2xl border border-white/30 ring-2 ring-gray-200 outline-none text-base bg-white text-[#1f2937] placeholder:text-gray-400 transition-all duration-200 disabled:opacity-50"
+              placeholder={isLoading ? "Escribiendo..." : "Escribe tu mensaje..."}
               value={input}
               onChange={e => setInput(e.target.value)}
               autoFocus
+              disabled={isLoading}
             />
             <button
               type="submit"
-              className="ml-3 p-0 w-10 h-10 flex items-center justify-center rounded-full border border-gray-200 text-[#374151] bg-white hover:bg-[#F5F1EA] transition-all duration-200 shadow-sm font-medium"
+              className="ml-3 p-0 w-10 h-10 flex items-center justify-center rounded-full border border-gray-200 text-[#374151] bg-white hover:bg-[#F5F1EA] transition-all duration-200 shadow-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={isLoading}
             >
               <FaPaperPlane className="w-5 h-5" />
             </button>
