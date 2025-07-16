@@ -22,7 +22,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-ASSISTANT_ID = "asst_C7z5xqHOSlOFDbXWL9YaFhNR"
+ASSISTANT_ID = "asst_ixPxx6FazgViOpW7UqpsTQo4"
 
 # Lista global para guardar los thread_id creados en esta instancia
 THREADS_FILE = "threads.json"
