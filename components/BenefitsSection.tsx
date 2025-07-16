@@ -1,87 +1,222 @@
-import React from 'react';
-import Card from './ui/Card';
-import { BenefitItem } from '../types';
-
-const IconWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <div className="text-brandBlack w-10 h-10 mb-5">
-    {children}
-  </div>
-);
-
-const AutomationIcon: React.FC = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
-  </svg>
-);
-
-const PersonalizationIcon: React.FC = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-  </svg>
-);
-
-const TimeSavingIcon: React.FC = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-  </svg>
-);
-
-const ScalabilityIcon: React.FC = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941" />
-  </svg>
-);
+import * as React from 'react';
+import Card from './ui/Card'; // Asegúrate de que este path sea correcto
+import { IoRocketOutline } from "react-icons/io5";
+import { FaFolder } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
+import { FaMoneyBill } from "react-icons/fa";
+import { FaMessage } from "react-icons/fa6";
+import { CiSearch } from "react-icons/ci";
+import { CiFolderOn } from "react-icons/ci";
+import { FiMessageCircle } from "react-icons/fi";
+import { CiCircleChevUp } from "react-icons/ci";
+import { CiCircleQuestion } from "react-icons/ci";
 
 
+// Define BenefitItem type if not already defined globally
+export interface BenefitItem {
+  id: number;
+  title: string; // Se mantiene en el tipo pero no se renderiza en la card
+  description: string;
+  icon: JSX.Element;
+}
+
+// Data for benefits (title prop still exists in data, but not rendered in card)
 const benefits: BenefitItem[] = [
   {
     id: 1,
-    title: 'Automatización inteligente de tareas',
-    description: 'Nuestros agentes IA gestionan emails, responden mensajes y ejecutan procesos, liberando a tu equipo para tareas de alto valor.',
-    icon: <AutomationIcon />,
+    title: '💬Atención instantánea 24/7', // This text title will no longer be rendered in the card
+    description: 'Respondé consultas, emails y mensajes sin demoras.',
+    icon: <CiCircleQuestion />
   },
   {
     id: 2,
-    title: 'Conocimiento profundo de tu negocio',
-    description: 'Entrenamos a cada agente IA con tus datos (documentos, FAQs, bases de datos, etc.) para que actúe con la voz y el conocimiento de tu marca.',
-    icon: <PersonalizationIcon />,
+    title: '📂Procesos automatizados',
+    description: 'Desde tareas operativas hasta gestión de información.',
+    icon: <CiFolderOn />
   },
   {
     id: 3,
-    title: 'Eficiencia operativa multiplicada',
-    description: 'Reduce drásticamente el tiempo en tareas manuales y optimiza costos al tener agentes IA trabajando 24/7 en tus operaciones.',
-    icon: <TimeSavingIcon />,
+    title: '🔍IA entrenada',
+    description: 'Nuestros agentes aprenden como si fueran parte de tu equipo.',
+    icon: <CiSearch />
   },
   {
     id: 4,
-    title: 'Capacidad de respuesta escalable',
-    description: 'Maneja un volumen creciente de interacciones y tareas sin aumentar proporcionalmente tu equipo. Crece de forma inteligente.',
-    icon: <ScalabilityIcon />,
+    title: '📈Escalabilidad sin límites',
+    description: 'Tu operación crece sin que tu equipo colapse.',
+    icon: <CiCircleChevUp />
   },
 ];
 
-const BenefitsSection: React.FC = () => {
+// --- HOOK: useInView (La misma versión robusta que en MetricsSection) ---
+function useInView(ref: React.RefObject<HTMLElement>, options = { threshold: 0.2, rootMargin: '-50px' }) {
+  const [inView, setInView] = React.useState(false);
+  const hasAnimated = React.useRef(false); 
+
+  React.useEffect(() => {
+    const element = ref.current;
+    if (!element || hasAnimated.current) return; 
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasAnimated.current) {
+          setInView(true);
+          hasAnimated.current = true; 
+          observer.unobserve(element); 
+        }
+      },
+      options
+    );
+    
+    observer.observe(element);
+    
+    return () => {
+      if (element) {
+        observer.unobserve(element);
+      }
+      observer.disconnect();
+    };
+  }, [ref, options]); 
+
+  return inView;
+}
+
+// --- SUBCOMPONENTE: BenefitCard (Refactorizado para coincidir con la imagen) ---
+
+interface BenefitCardProps {
+  benefit: BenefitItem;
+  index: number;
+}
+
+const BenefitCard: React.FC<BenefitCardProps> = ({ benefit, index }) => {
+  const cardRef = React.useRef<HTMLDivElement>(null);
+  const inView = useInView(cardRef, { threshold: 0.3 });
+
+  const animationDirections = ['left', 'right', 'left', 'right'];
+  const direction = animationDirections[index % animationDirections.length];
+  const transitionDelay = `${index * 0.15 + 0.2}s`;
+
   return (
-    <section id="beneficios" className="section-spacing bg-surface">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-textPrimary mb-3">
-            Potencia tu negocio con <span className="text-brandBlack">agentes de IA</span> a medida
-          </h2>
-          <p className="text-lg text-textSecondary max-w-3xl mx-auto">
-            Descubrí cómo nuestros agentes de IA, entrenados específicamente para tu empresa, pueden automatizar comunicaciones, gestionar información y optimizar tus procesos.
+    <div
+      ref={cardRef}
+      className={`relative transition-all duration-1000 ease-out ${
+        inView 
+          ? 'opacity-100 translate-x-0 translate-y-0' 
+          : direction === 'left'
+            ? 'opacity-0 -translate-x-24 translate-y-8'
+            : 'opacity-0 translate-x-24 translate-y-8'
+      }`}
+      style={{ transitionDelay }}
+    >
+      <Card
+        className={`
+          flex flex-col items-center justify-center
+          min-h-[340px] h-[340px] max-w-[320px] w-full mx-auto 
+          overflow-hidden backdrop-blur-xl bg-gradient-to-br from-white/80 to-white/60 
+          border border-white/30 
+          shadow-2xl transition-all duration-300 relative
+          rounded-2xl 
+        `}
+      >
+        {/* Íconos centrados y espaciado ajustado */}
+        <div className="flex items-center justify-center mb-4 mt-0">
+          {React.cloneElement(benefit.icon as React.ReactElement, {
+            className: "w-20 h-20 text-brandBlack",
+          })}
+        </div>
+
+        {/* Descripción ajustada hacia arriba */}
+        <div className="relative z-10 p-8 text-center mt-[-15px]">
+          <p className="text-base text-textSecondary/80 font-light leading-relaxed max-w-[220px] mx-auto whitespace-pre-line">
+            {benefit.description}
           </p>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-          {benefits.map((benefit) => (
-            <Card key={benefit.id} className="text-left hover:shadow-md transition-shadow duration-300">
-              <IconWrapper>{benefit.icon}</IconWrapper>
-              <h3 className="text-xl font-semibold text-brandBlack mb-2">{benefit.title}</h3>
-              <p className="text-textSecondary text-sm leading-relaxed">{benefit.description}</p>
-            </Card>
+      </Card>
+    </div>
+  );
+};
+
+// --- COMPONENTE PRINCIPAL: BenefitsSection ---
+const BenefitsSection: React.FC = () => {
+  const sectionRef = React.useRef<HTMLDivElement>(null);
+  const titleRef = React.useRef<HTMLDivElement>(null);
+  const titleInView = useInView(titleRef);
+
+  return (
+    <section
+      ref={sectionRef}
+      id="beneficios"
+      className="relative section-spacing bg-transparent overflow-hidden"
+    >
+      {/* Enhanced Background Effects (ajustados para ser sutiles) */}
+      <div className="absolute inset-0 pointer-events-none z-0" aria-hidden="true">
+        <div className="w-[50vw] h-[50vw] bg-gradient-to-br from-accentOne/15 to-accentOne/5 rounded-full blur-3xl absolute -top-32 right-[-10vw] animate-pulse opacity-60" />
+        <div className="w-[35vw] h-[35vw] bg-gradient-to-tl from-accentOne/8 to-transparent rounded-full blur-2xl absolute bottom-[-10vw] left-[-5vw] animate-pulse opacity-40" style={{ animationDelay: '3s' }} />
+      </div>
+
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Título de la sección (AHORA CON SUBRAYADO CENTRADO) */}
+        <div
+          ref={titleRef}
+          className={`text-left mb-20 max-w-3xl transition-all duration-1000 ease-out ${titleInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+        >
+          <h2 className="text-5xl md:text-7xl font-extralight text-brandBlack mb-6 tracking-tight drop-shadow-lg relative text-left">
+    Qué podes lograr
+    {/* Animated underline */}
+    <div 
+      className={`absolute -bottom-2 left-0 transform h-1 bg-gradient-to-r from-transparent via-accentOne/50 to-transparent transition-all duration-1000 ${
+        titleInView ? 'w-32' : 'w-0'
+      }`} 
+    />
+  </h2>
+        </div>
+
+        {/* Grid de Beneficios (manteniendo gaps y items-stretch) */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 items-stretch justify-items-center">
+          {benefits.map((benefit, i) => (
+            <BenefitCard key={benefit.id} benefit={benefit} index={i} />
           ))}
         </div>
+
+        {/* Enhanced decorative elements (ajustados para ser sutiles) */}
+        <div className="absolute top-1/2 left-0 w-px h-16 bg-gradient-to-b from-transparent via-accentOne/20 to-transparent opacity-20" />
+        <div className="absolute top-1/2 right-0 w-px h-16 bg-gradient-to-b from-transparent via-accentOne/20 to-transparent opacity-20" />
       </div>
+
+      {/* Custom animations (se mantienen aunque algunos ya no se usen explícitamente) */}
+      <style jsx>{`
+        @keyframes floatIn {
+          from {
+            opacity: 0;
+            transform: translateY(30px) scale(0.8);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
+        }
+        
+        @keyframes shimmer {
+          0% {
+            transform: translateX(-100%);
+          }
+          100% {
+            transform: translateX(100%);
+          }
+        }
+        
+        .shimmer::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+          animation: shimmer 2s infinite;
+        }
+      `}</style>
     </section>
   );
 };

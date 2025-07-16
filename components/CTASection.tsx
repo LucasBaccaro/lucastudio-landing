@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import Button from './ui/Button';
 
 // WhatsApp Icon Component
@@ -23,26 +23,23 @@ const CTASection: React.FC = () => {
   };
 
   return (
-    <section id="contacto" className="section-spacing bg-surface text-textPrimary">
+    <section id="contacto" className="section-spacing bg-brandBlack text-surface">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-brandBlack mb-6">
-          ¿Listo para que un agente de IA <br className="hidden sm:inline"/> potencie tu negocio?
+        <h2 className="text-4xl sm:text-5xl md:text-6xl font-light text-surface mb-6">
+        ¿Querés que tu negocio <br className="hidden sm:inline"/> trabaje con IA??
         </h2>
-        <p className="text-lg sm:text-xl text-textSecondary mb-10 max-w-3xl mx-auto">
-          Descubrí cómo un agente de IA, entrenado con la información y los procesos de tu empresa, puede gestionar comunicaciones (email, mensajes), acceder a datos (stock, pedidos) y automatizar tareas. Solicita una demostración gratuita y sin compromiso.
-        </p>
         <Button 
           variant="primary"
           size="lg"
           onClick={handleWhatsAppRedirect}
           aria-label="Contactate a través de WhatsApp"
-          className="space-x-2.5" // Ensures space between icon and text
+          className="space-x-2.5"
         >
-          <WhatsAppIcon className="w-7 h-7" /> {/* Increased size from w-5 h-5 to w-7 h-7 and removed filter classes */}
-          <span>Contactate con nosotros</span>
+          <WhatsAppIcon className="w-7 h-7" />
+          <span>Contactanos por WhatsApp</span>
         </Button>
-        <p className="mt-8 text-sm text-textSecondary">
-          O escríbenos a: <a href="mailto:lucastudio.ba@gmail.com" className="underline hover:text-brandBlack">lucastudio.ba@gmail.com</a>
+        <p className="mt-8 text-sm text-surface/70">
+        O escríbenos a: <a href="mailto:lucastudio.ba@gmail.com" className="underline hover:text-surface">lucastudio.ba@gmail.com</a>
         </p>
       </div>
     </section>

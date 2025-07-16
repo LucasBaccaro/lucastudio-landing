@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'outline';
@@ -13,7 +13,7 @@ const Button: React.FC<ButtonProps> = ({
   className = '',
   ...props
 }) => {
-  const baseStyles = 'font-semibold rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all duration-200 ease-in-out inline-flex items-center justify-center';
+  const baseStyles = 'font-medium rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all duration-200 ease-in-out inline-flex items-center justify-center shadow-none';
   
   let variantStyles = '';
   let finalSizeStyles = '';
@@ -43,15 +43,15 @@ const Button: React.FC<ButtonProps> = ({
 
   switch (variant) {
     case 'primary':
-      variantStyles = 'bg-brandBlack text-surface hover:bg-opacity-80 focus:ring-brandBlack';
+      variantStyles = 'bg-brandBlack text-surface hover:bg-brandBlack/90 focus:ring-brandBlack';
       finalSizeStyles = `${pxClass} ${pyClassDefault} ${textSizeClass}`;
       break;
     case 'secondary':
-      variantStyles = 'bg-accentOne text-surface hover:bg-opacity-80 focus:ring-accentOne';
+      variantStyles = 'bg-accentOne text-surface hover:bg-accentOne/90 focus:ring-accentOne';
       finalSizeStyles = `${pxClass} ${pyClassDefault} ${textSizeClass}`;
       break;
     case 'outline':
-      variantStyles = 'bg-transparent border-2 border-brandBlack text-brandBlack hover:bg-brandBlack hover:text-surface focus:ring-brandBlack';
+      variantStyles = 'bg-transparent border border-brandBlack text-brandBlack hover:bg-brandBlack hover:text-surface focus:ring-brandBlack';
       // Adjust pyClass for outline to make overall height match primary/secondary
       // The border is 2px, so we subtract 2px from each side's padding effectively.
       // py-2 (8px) becomes py-1.5 (6px for padding, 6+2=8)
