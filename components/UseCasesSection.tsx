@@ -1,9 +1,9 @@
-import React from 'react';
+import * as React from 'react';
 import Card from './ui/Card';
 import { UseCaseItem } from '../types';
 
 const IconUseCaseWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <div className="text-brandBlack w-7 h-7">
+  <div className="text-brandBlack w-16 h-16 mb-6 flex items-center justify-center bg-white/40 rounded-2xl shadow-md backdrop-blur-xl">
     {children}
   </div>
 );
@@ -61,26 +61,21 @@ const useCases: UseCaseItem[] = [
 
 const UseCasesSection: React.FC = () => {
   return (
-    <section id="casos-de-uso" className="section-spacing bg-surface">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-textPrimary mb-3">
-            Tu agente de IA en acción: <span className="text-brandBlack">posibilidades infinitas</span>
-          </h2>
-          <p className="text-lg text-textSecondary max-w-3xl mx-auto">
-            Desde gestionar tu bandeja de entrada hasta consultar el stock en tiempo real y comunicarse con clientes, descubre lo que un agente de IA personalizado puede hacer por ti.
-          </p>
+    <section id="casos-de-uso" className="relative section-spacing bg-transparent overflow-x-clip">
+      <div className="absolute inset-0 pointer-events-none z-0" aria-hidden="true">
+        <div className="w-[40vw] h-[40vw] bg-brandBlack/10 rounded-full blur-2xl absolute top-0 left-0 animate-pulse" />
+      </div>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="text-left mb-16 max-w-2xl">
+          <h2 className="text-5xl md:text-7xl font-extralight text-brandBlack mb-4 tracking-tight drop-shadow-lg">Casos de uso</h2>
+          <p className="text-xl md:text-2xl text-textSecondary/80 font-light">Descubrí lo que podés automatizar y escalar con IA.</p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-          {useCases.map((useCase) => (
-            <Card key={useCase.id} className="flex items-start space-x-4 p-6 hover:shadow-md transition-shadow duration-300">
-              <div className="flex-shrink-0 bg-brandBlack/10 p-3 rounded-lg mt-1">
-                <IconUseCaseWrapper>{useCase.icon}</IconUseCaseWrapper>
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold text-brandBlack mb-1.5">{useCase.title}</h3>
-                <p className="text-textSecondary leading-relaxed">{useCase.description}</p>
-              </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+          {useCases.map((useCase, i) => (
+            <Card key={useCase.id} className="flex flex-col items-center justify-center min-h-[260px] max-w-xs mx-auto overflow-hidden">
+              <IconUseCaseWrapper>{useCase.icon}</IconUseCaseWrapper>
+              <h3 className="text-2xl font-light text-brandBlack mb-2 text-center break-words whitespace-pre-line">{useCase.title}</h3>
+              <p className="text-base text-textSecondary/80 text-center font-light break-words whitespace-pre-line max-w-[90%] mx-auto">{useCase.description}</p>
             </Card>
           ))}
         </div>
