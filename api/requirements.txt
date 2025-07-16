@@ -2,3 +2,4 @@ uvicorn
 openai
 python-dotenv
 openai-agents
+fastapi
