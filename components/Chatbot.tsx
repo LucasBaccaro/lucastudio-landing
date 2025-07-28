@@ -83,7 +83,7 @@ const Chatbot: React.FC = () => {
         >
           {/* Header minimalista */}
           <div className="flex items-center justify-between px-7 py-4 border-b border-white/20 bg-white">
-            <span className="font-semibold tracking-wide text-lg text-[#1f2937]">Luca Studio Bot</span>
+            <span className="font-semibold tracking-wide text-lg text-[#1f2937]">Luca Studio</span>
             <button onClick={() => setOpen(false)} aria-label="Cerrar chat" className="text-[#1f2937]/40 hover:text-[#1f2937] text-2xl transition-colors px-2">×</button>
           </div>
           {/* Mensajes tipo burbuja */}
